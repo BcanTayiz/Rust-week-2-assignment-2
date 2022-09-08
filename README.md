@@ -60,4 +60,9 @@ For example 'izmir' and 'denizli':
 izmirdenizli
 ```
 
+5. Then, from naked inputs you are expected to calculate root of merkle tree. Return the root as a String output.
+6. Program should be run like:
 
+``` cli
+cargo run input0.txt
+```
