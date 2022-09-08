@@ -62,8 +62,9 @@ izmirdenizli
 
 5. Then, from naked inputs you are expected to calculate root of merkle tree. Return the root as a String output.
 6. You can use helper function templates or just remove them.
-7. Program should be run like:
+7. You can run tests like below:
 
 ``` cli
-cargo run input0.txt
+cargo run test
 ```
+8. Pass all tests :)
