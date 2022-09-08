@@ -25,6 +25,39 @@ The first line is **_n_** which is $2^n$ where the total number of leaves bottom
 1. Fork or clone this repository
 2. Add dependencies to Cargo.toml which you would like to use
 3. Read data from txt file and use it as is required so, store the **_n_** as **u32** and store splitted **String** inputs to a **Vector of Strings**
-4. Hash all inputs with SHA256 from [sha-2](https://docs.rs/sha2/latest/sha2/) crate
+4. Hash all inputs with SHA256 from [sha-2](https://docs.rs/sha2/latest/sha2/) crate. It should be hex encoded then for the sake of this assignment it can be hashed like this:
+```rust
+fn hash_single_input(a: &str) -> String {
+    let mut hasher = Sha256::new();
+    let input = a;
+    hasher.update(input);
+    let hash = hasher.finalize();
+    let hex = hex::encode(&hash);
+
+    return hex.to_string();
+}
+```
+Also you can check your output from [here](https://emn178.github.io/online-tools/sha256.html)
+Moreover, if you want to hash two hash it should be hashed like this:
+```rust
+fn hash_two_input(a: &str, b: &str) -> String {
+    let mut hasher = Sha256::new();
+    let first_input = a;
+    let second_input = b;
+
+    // Hash Two String 
+    hasher.update(a);
+    hasher.update(b);
+    let hash = hasher.finalize();
+    let hex = hex::encode(&hash);
+
+    return hex.to_string();
+}
+```
+And also you can check your output from [here](https://emn178.github.io/online-tools/sha256.html) adding inputs to another without any spaces.
+For example 'izmir' and 'denizli':
+```txt
+izmirdenizli
+```
 
 
