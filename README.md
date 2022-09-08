@@ -17,7 +17,7 @@ deniz
 gemi
 ucak
 ```
-The first line is **_n_** which is $2^n$ where the total number of leaves bottom of the tree
+The first line is **_n_** which is $2^n$ where the total number of leaves bottom of the tree. Then if **_n_** is 3 like above we have **8** naked leaves in our tree. All of them is non hashed and they are written to text file one under the other.
 ![Merkle Tree](https://upload.wikimedia.org/wikipedia/commons/9/95/Hash_Tree.svg)
 
 ### Instructions
