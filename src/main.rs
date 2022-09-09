@@ -11,6 +11,9 @@ fn main(filename: String) -> String {
     
 
     // Then Write an algorithm that calculates the ROOT
+
+
+    // Return the root hash as a String
 }
 
 // You can use them or just remove
