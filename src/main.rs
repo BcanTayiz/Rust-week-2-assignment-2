@@ -1,6 +1,6 @@
 // Import Crates
 
-fn main() {
+fn main(filename: String) -> String {
     // Read Input Data from txt file
     todo!()
 
