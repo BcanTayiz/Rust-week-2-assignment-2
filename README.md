@@ -37,23 +37,14 @@ fn hash_single_input(a: &str) -> String {
     return hex.to_string();
 }
 ```
+**Note:** But also writing macro rule for hashing would be great!
+</br>
+</br>
 Also you can check your output from [here](https://emn178.github.io/online-tools/sha256.html)
-Moreover, if you want to hash two hash it should be hashed like this:
-```rust
-fn hash_two_input(a: &str, b: &str) -> String {
-    let mut hasher = Sha256::new();
-    let first_input = a;
-    let second_input = b;
+</br>
+</br>
+Moreover, if you want to hash two hash it you can concat two strings and hash it with the function above.
 
-    // Hash Two String 
-    hasher.update(a);
-    hasher.update(b);
-    let hash = hasher.finalize();
-    let hex = hex::encode(&hash);
-
-    return hex.to_string();
-}
-```
 And also you can check your output from [here](https://emn178.github.io/online-tools/sha256.html) adding inputs to another without any spaces.
 For example 'izmir' and 'denizli':
 ```txt
