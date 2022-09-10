@@ -23,12 +23,7 @@ fn create_next_level(current_level: Vec::<String>) -> Vec::<String> {
 }
 
 
-// Helper function to hash one input may help you
-fn hash_one_input(a: &str) -> String {
-    todo!();
-}
-
-// Helper function to hash two input
-fn hash_two_input(a: &str, b: &str) -> String {
+// Helper function may help you to hash an input or You can write macro rules
+fn hash_input(a: &str) -> String {
     todo!();
 }
