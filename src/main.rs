@@ -1,8 +1,14 @@
 // Import Crates
+use std::fs::File;
+use std::io::{BufRead, BufReader};
 
-fn main(filename: String) -> String {
+fn main()  {
     // Read Input Data from txt file
-    todo!()
+    let AllData = getInput();
+
+    println!("{:?}",AllData);
+
+    //todo!()
 
     // Create vector of strings for leaves
     
@@ -14,6 +20,25 @@ fn main(filename: String) -> String {
 
 
     // Return the root hash as a String
+}
+
+fn getInput() -> Vec<Vec<String>>{
+
+    let mut dataVector = Vec::new();
+
+    for input in 1..5{
+        let input = File::open(format!("input{}.txt",input))
+        .expect("Should have been able to read the file");
+        let input = BufReader::new(input);
+        let mut InputVec = Vec::new();
+        for line in input.lines() {
+            let line = line.expect("Unable to read line");
+            InputVec.push(line);
+        }
+        dataVector.push(InputVec)
+
+    }
+    dataVector
 }
 
 // You can use templates below or just remove
