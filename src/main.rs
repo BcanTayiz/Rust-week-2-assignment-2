@@ -1,16 +1,34 @@
 // Import Crates
 use std::fs::File;
 use std::io::{BufRead, BufReader};
+use sha2::{Sha256, Digest};
+
+#[derive(Debug)]
+pub struct HashNode{
+    index: usize,
+    hash:sha2::digest::generic_array::GenericArray<u8, sha2::digest::typenum::UInt<sha2::digest::typenum::UInt<sha2::digest::typenum::UInt<sha2::digest::typenum::UInt<sha2::digest::typenum::UInt<sha2::digest::typenum::UInt<sha2::digest::typenum::UTerm, sha2::digest::typenum::B1>, sha2::digest::typenum::B0>, sha2::digest::typenum::B0>, sha2::digest::typenum::B0>, sha2::digest::typenum::B0>, sha2::digest::typenum::B0>>,
+    string: String,
+    containedValues: ,
+}
 
 fn main()  {
     // Read Input Data from txt file
     let AllData = getInput();
 
-    println!("{:?}",AllData);
+    println!("{:#?}",AllData);
 
     //todo!()
 
+    
+
+
+
     // Create vector of strings for leaves
+    for (index1,data) in AllData.iter().enumerate() {
+        for (index2,stringVal) in data.iter().enumerate(){
+            AllData[index1][index2].containedValues.push(AllData[index1][index2+1],AllData[index1][index2+2])
+        }
+    }
     
 
     // Hash inputs and append to vector
@@ -22,23 +40,35 @@ fn main()  {
     // Return the root hash as a String
 }
 
-fn getInput() -> Vec<Vec<String>>{
+fn getInput() -> Vec<Vec<HashNode>>{
 
     let mut dataVector = Vec::new();
+
+    
 
     for input in 1..5{
         let input = File::open(format!("input{}.txt",input))
         .expect("Should have been able to read the file");
         let input = BufReader::new(input);
         let mut InputVec = Vec::new();
-        for line in input.lines() {
+        for (i,line) in input.lines().enumerate() {
             let line = line.expect("Unable to read line");
-            InputVec.push(line);
+            let mut hasher = Sha256::new();
+            hasher.update(line.to_string());
+            let result = hasher.finalize();
+            let nodeString = HashNode{index:i,hash:result,string:line,containedValues:vec![]};
+            InputVec.push(nodeString);
+            setHashes(i);
         }
-        dataVector.push(InputVec)
-
+        dataVector.push(InputVec);
+        
+        println!("{:?}",dataVector);
     }
     dataVector
+}
+
+fn setHashes(index:usize){
+    println!("{:?}",index);
 }
 
 // You can use templates below or just remove
