@@ -6,14 +6,20 @@ use sha2::{Sha256, Digest};
 #[derive(Debug)]
 pub struct HashNode{
     index: usize,
-    hash:sha2::digest::generic_array::GenericArray<u8, sha2::digest::typenum::UInt<sha2::digest::typenum::UInt<sha2::digest::typenum::UInt<sha2::digest::typenum::UInt<sha2::digest::typenum::UInt<sha2::digest::typenum::UInt<sha2::digest::typenum::UTerm, sha2::digest::typenum::B1>, sha2::digest::typenum::B0>, sha2::digest::typenum::B0>, sha2::digest::typenum::B0>, sha2::digest::typenum::B0>, sha2::digest::typenum::B0>>,
+    hash:std::string::String,
     string: String,
-    containedValues: ,
+    containedValues: Vec<usize>,
+}
+
+impl HashNode {
+    fn change_hash(&mut self, stringVal: String) {
+        self.hash = stringVal;
+    }
 }
 
 fn main()  {
     // Read Input Data from txt file
-    let AllData = getInput();
+    let mut AllData = getInput();
 
     println!("{:#?}",AllData);
 
@@ -23,11 +29,37 @@ fn main()  {
 
 
 
-    // Create vector of strings for leaves
-    for (index1,data) in AllData.iter().enumerate() {
-        for (index2,stringVal) in data.iter().enumerate(){
-            AllData[index1][index2].containedValues.push(AllData[index1][index2+1],AllData[index1][index2+2])
+    //Create vector of strings for leaves
+    for i in (0..AllData.len()){
+        println!("{}",i);
+        let mut index = AllData[i].len();
+        for j in (0..i){
+            if j % 2 == 0{
+                let mut hasher = Sha256::new();
+                let total_string = format!("{}{}", AllData[i][j].string,AllData[i][j+1].string);
+                hasher.update(total_string);
+                let result1 = hasher.finalize();
+                let hex1 = hex::encode(&result1);
+                
+                AllData[i][j/2].change_hash(hex1)
+            }else{
+                let mut hasher = Sha256::new();
+                let total_string = format!("{}{}", AllData[i][j+1].string,AllData[i][j].string);
+                hasher.update(total_string);
+                let result1 = hasher.finalize();
+                let hex1 = hex::encode(&result1);
+
+                AllData[i][j/2].change_hash(hex1)
+            }
+
+            index = index / 2
+
+
+            
         }
+        
+        
+
     }
     
 
@@ -56,7 +88,8 @@ fn getInput() -> Vec<Vec<HashNode>>{
             let mut hasher = Sha256::new();
             hasher.update(line.to_string());
             let result = hasher.finalize();
-            let nodeString = HashNode{index:i,hash:result,string:line,containedValues:vec![]};
+            let hex = hex::encode(&result);
+            let nodeString = HashNode{index:i,hash:hex.to_string().to_owned(),string:line,containedValues:vec![]};
             InputVec.push(nodeString);
             setHashes(i);
         }
