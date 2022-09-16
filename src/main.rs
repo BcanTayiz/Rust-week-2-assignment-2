@@ -8,7 +8,6 @@ pub struct HashNode{
     index: usize,
     hash:std::string::String,
     string: String,
-    containedValues: Vec<usize>,
 }
 
 impl HashNode {
@@ -34,6 +33,8 @@ fn main(){
         for j in 0..i{
             index = index / 2;
             if j % 2 != 0{
+
+                // algorithm
                 let mut hasher = Sha256::new();
                 let total_string = format!("{}{}", AllData[i][j].string,AllData[i][j+1].string);
                 hasher.update(total_string);
@@ -72,6 +73,7 @@ fn main(){
 }
 
 
+// I mistakenly collected all data and made a test here
 fn get_output(hashNodes:Vec<Vec<HashNode>>) -> Vec<Vec<HashNode>>{
     for i in 0..hashNodes.len(){
         for j in 0..i{
@@ -102,6 +104,7 @@ fn getInput() -> Vec<Vec<HashNode>>{
     
 
     for input in 1..5{
+        // collecting all data in one vector of variables
         let input = File::open(format!("input{}.txt",input))
         .expect("Should have been able to read the file");
         let input = BufReader::new(input);
@@ -112,7 +115,7 @@ fn getInput() -> Vec<Vec<HashNode>>{
             hasher.update(line.to_string());
             let result = hasher.finalize();
             let hex = hex::encode(&result);
-            let nodeString = HashNode{index:i,hash:hex.to_string().to_owned(),string:line,containedValues:vec![]};
+            let nodeString = HashNode{index:i,hash:hex.to_string().to_owned(),string:line};
             InputVec.push(nodeString);
             setHashes(i);
         }
