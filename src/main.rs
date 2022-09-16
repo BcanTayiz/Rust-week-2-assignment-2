@@ -17,11 +17,9 @@ impl HashNode {
     }
 }
 
-fn main()  {
+fn main(){
     // Read Input Data from txt file
     let mut AllData = getInput();
-
-    println!("{:#?}",AllData);
 
     //todo!()
 
@@ -35,7 +33,7 @@ fn main()  {
         let mut index = AllData[i].len();
         for j in 0..i{
             index = index / 2;
-            if j % 2 == 0{
+            if j % 2 != 0{
                 let mut hasher = Sha256::new();
                 let total_string = format!("{}{}", AllData[i][j].string,AllData[i][j+1].string);
                 hasher.update(total_string);
@@ -50,7 +48,7 @@ fn main()  {
                 hasher.update(total_string);
                 let result1 = hasher.finalize();
                 let hex1 = hex::encode(&result1);
-
+                
                 AllData[i][index].change_hash(hex1);
                 AllData[i][index].index = index;
             }
@@ -58,6 +56,10 @@ fn main()  {
             
         }
     }
+
+
+    get_output(AllData);
+    
     
 
     // Hash inputs and append to vector
@@ -67,6 +69,30 @@ fn main()  {
 
 
     // Return the root hash as a String
+}
+
+
+fn get_output(hashNodes:Vec<Vec<HashNode>>) -> Vec<Vec<HashNode>>{
+    for i in 0..hashNodes.len(){
+        for j in 0..i{
+            if j == 0{
+                
+                if hashNodes[i][j].index == 0{
+                    let k = i as u32;
+                    let l = j as i32;
+                    match k {
+                        0 => assert_eq!(hashNodes[i][j].hash,"ff41418be11ed77612aeb83ee0bcf97a5853a4c291e23bd4d4cc6435fcfabdf9"),
+                        1 => assert_eq!(hashNodes[i][j].hash,"98a77b2c3ff5f6c2aca697f60b2aa2a1a2733be36dbd35bae23d517c2ad5985e"),
+                        2 => assert_eq!(hashNodes[i][j].hash,"3c0fb0638de91551eae4e9d984d72034aa0693be37b51737e6b81bc489866e5e"),
+                        3 => assert_eq!(hashNodes[i][j].hash,"f03b1c9163babeb728ac011fe0c2c9c69700a2f8ddde211ec07d621cdb322cfe"),
+                        4 => assert_eq!(hashNodes[i][j].hash,"f83e74742fda659dfc07615881af796abafc434f591aeb23b9f4366abe03c597"),
+                        _ => ()
+                    }
+                }
+            }
+        }
+    }
+    return hashNodes
 }
 
 fn getInput() -> Vec<Vec<HashNode>>{
