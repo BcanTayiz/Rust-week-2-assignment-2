@@ -47,10 +47,10 @@ fn main(){
                 let mut hasher = Sha256::new();
                 let total_string = format!("{}{}", AllData[i][j+1].string,AllData[i][j].string);
                 hasher.update(total_string);
-                let result1 = hasher.finalize();
-                let hex1 = hex::encode(&result1);
+                let result2 = hasher.finalize();
+                let hex2 = hex::encode(&result2);
                 
-                AllData[i][index].change_hash(hex1);
+                AllData[i][index].change_hash(hex2);
                 AllData[i][index].index = index;
             }
 
