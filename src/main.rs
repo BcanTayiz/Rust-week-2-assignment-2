@@ -27,6 +27,7 @@ fn main(){
 
 
     //Create vector of strings for leaves
+    //Algorithm trial
     for i in 0..AllData.len(){
         println!("{}",i);
         let mut index = AllData[i].len();
