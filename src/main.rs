@@ -30,10 +30,11 @@ fn main()  {
 
 
     //Create vector of strings for leaves
-    for i in (0..AllData.len()){
+    for i in 0..AllData.len(){
         println!("{}",i);
         let mut index = AllData[i].len();
-        for j in (0..i){
+        for j in 0..i{
+            index = index / 2;
             if j % 2 == 0{
                 let mut hasher = Sha256::new();
                 let total_string = format!("{}{}", AllData[i][j].string,AllData[i][j+1].string);
@@ -41,7 +42,7 @@ fn main()  {
                 let result1 = hasher.finalize();
                 let hex1 = hex::encode(&result1);
                 
-                AllData[i][index].change_hash(hex1)
+                AllData[i][index].change_hash(hex1);
                 AllData[i][index].index = index;
             }else{
                 let mut hasher = Sha256::new();
@@ -54,7 +55,7 @@ fn main()  {
                 AllData[i][index].index = index;
             }
 
-            index = index / 2
+            
         }
     }
     
