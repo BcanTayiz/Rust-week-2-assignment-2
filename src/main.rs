@@ -41,7 +41,8 @@ fn main()  {
                 let result1 = hasher.finalize();
                 let hex1 = hex::encode(&result1);
                 
-                AllData[i][j/2].change_hash(hex1)
+                AllData[i][index].change_hash(hex1)
+                AllData[i][index].index = index;
             }else{
                 let mut hasher = Sha256::new();
                 let total_string = format!("{}{}", AllData[i][j+1].string,AllData[i][j].string);
@@ -49,17 +50,12 @@ fn main()  {
                 let result1 = hasher.finalize();
                 let hex1 = hex::encode(&result1);
 
-                AllData[i][j/2].change_hash(hex1)
+                AllData[i][index].change_hash(hex1);
+                AllData[i][index].index = index;
             }
 
             index = index / 2
-
-
-            
         }
-        
-        
-
     }
     
 
